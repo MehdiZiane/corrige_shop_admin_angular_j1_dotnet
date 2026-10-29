@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { PanierService } from '../../services/panier.service';
 
 @Component({
   selector: 'app-header',
@@ -8,4 +9,5 @@ import { Component } from '@angular/core';
 })
 export class Header {
   title = 'ShopAdmin';
+  panierService = inject(PanierService);
 }

@@ -1,4 +1,4 @@
-import { Service, signal } from '@angular/core';
+import { computed, Service, signal } from '@angular/core';
 import { cartItemModel } from '../components/cart-items/cart-item.model';
 import { CartItems } from '../components/cart-items/cart-items';
 
@@ -14,6 +14,14 @@ export class PanierService {
   // notre service gère sont état de sortre a ce qu'il reste cohérent
  private _cartItems = signal<cartItemModel[]>([])
  cartItems = this._cartItems.asReadonly()
+
+ totalCount = computed(() => 
+    this._cartItems().reduce((total, item) => total + item.quantity, 0)
+  );
+
+  clear(): void{
+    this._cartItems.set([]);
+  }
 
  ajouter(cartItem : cartItemModel) {
   if(this.IsAlreadyInCart(cartItem) ) {
